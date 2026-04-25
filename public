@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kling 3 Pro Motion Control - Web Perantara</title>
+  <style>body{font-family:Arial;margin:20px;} input, button, textarea{width:100%; margin:8px 0; padding:10px;}</style>
+</head>
+<body>
+  <h1>Kling 3 Pro Motion Control</h1>
+  <form id="form">
+    <input type="text" id="image_url" placeholder="Image URL (karakter)" required>
+    <input type="text" id="video_url" placeholder="Video URL (referensi gerakan)" required>
+    <textarea id="prompt" rows="3" placeholder="Prompt opsional (max 2500 char)"></textarea>
+    <select id="character_orientation">
+      <option value="video">Video (gerakan kompleks, max 30 detik)</option>
+      <option value="image">Image (gerakan kamera, max 10 detik)</option>
+    </select>
+    <input type="number" id="cfg_scale" value="0.5" step="0.1" min="0" max="1" placeholder="CFG Scale">
+    <button type="submit">🚀 Buat Video Motion Control</button>
+  </form>
+
+  <pre id="result"></pre>
+
+  <script>
+    document.getElementById('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const resultEl = document.getElementById('result');
+      resultEl.textContent = '⏳ Sedang memproses...';
+
+      const body = {
+        image_url: document.getElementById('image_url').value,
+        video_url: document.getElementById('video_url').value,
+        prompt: document.getElementById('prompt').value || '',
+        character_orientation: document.getElementById('character_orientation').value,
+        cfg_scale: parseFloat(document.getElementById('cfg_scale').value)
+      };
+
+      const res = await fetch('/api/kling-motion-control-pro', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+      });
+
+      const data = await res.json();
+      resultEl.textContent = JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>
