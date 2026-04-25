@@ -1,15 +1,16 @@
 {
-  "name": "web-gerak-kling",
+  "name": "freepik-kling-proxy",
   "version": "1.0.0",
-  "main": "app.js",
+  "description": "Server perantara + web UI untuk Freepik Kling 3 Pro Motion Control",
+  "main": "aplikasi.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node aplikasi.js",
+    "dev": "node aplikasi.js"
   },
   "dependencies": {
-    "express": "^4.21.0",
-    "multer": "^1.4.5-lts.1",
-    "axios": "^1.7.0",
+    "express": "^4.19.2",
+    "axios": "^1.7.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.0"
+    "dotenv": "^16.4.5"
   }
 }
